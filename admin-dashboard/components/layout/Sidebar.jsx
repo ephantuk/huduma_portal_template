@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import { navConfig } from "@/lib/nav-config";
 
 export default function Sidebar({ open, onNavigate }) {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
 
   return (
     <aside className={`hvc-sidebar d-flex flex-column py-3 ${open ? "hvc-sidebar-open" : ""}`}>

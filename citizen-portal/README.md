@@ -1,6 +1,6 @@
 # Huduma Virtual Centre (HVC) — Citizen Portal (template)
 
-Next.js 16 (App Router) + React 19 + Bootstrap 5 (via `react-bootstrap`) template for the **citizen-facing
+Next.js 16 (**Pages Router**) + React 19 + Bootstrap 5 (via `react-bootstrap`) template for the **citizen-facing
 web portal** of the Huduma Virtual Centre, per `HVC_User_Requirements_Document_v1.1.docx` (Section 5) and
 `DGSP_User_Stories.docx` (Module B — Citizen Web App, epics B1–B9).
 
@@ -9,11 +9,11 @@ its source requirement.
 
 ## Stack
 
-- **Next.js 16**, App Router, JavaScript
+- **Next.js 16**, **Pages Router** (`pages/` directory — not `app/`), JavaScript
 - **React 19**
 - **react-bootstrap 2 + Bootstrap 5**
 - **recharts** installed (available for future analytics-style pages; not currently used on the citizen side)
-- **Sass** theme layer (`app/globals.scss`) — same Huduma green palette as the admin-dashboard template,
+- **Sass** theme layer (`styles/globals.scss`) — same Huduma green palette as the admin-dashboard template,
   plus a mobile bottom tab bar (`components/layout/BottomNav.jsx`) so the web build already reads as
   "mobile app ready" on small screens, per the omnichannel requirement (UR-OMNI-01 to UR-OMNI-06).
 - A minimal EN/SW dictionary (`lib/i18n/dictionary.js` + `context/LocaleProvider.jsx`) demonstrates the
@@ -28,39 +28,39 @@ npm run dev      # http://localhost:3000
 npm run build && npm run start   # production build
 ```
 
+## How routing works here (Pages Router)
+
+- `pages/_app.js` — global CSS imports, `ThemeProvider` + `LocaleProvider`, and the `getLayout` pattern.
+- `pages/_document.js` — customizes the outer `<html>`/`<body>`.
+- Every file under `pages/` is a route: `pages/checkout.js` → `/checkout`, `pages/services/[slug]/index.js` →
+  `/services/national-id-replacement`, `pages/services/[slug]/apply.js` → `.../apply`, etc.
+- **Per-page layout**: each page sets `Page.getLayout = (page) => <PortalLayout>{page}</PortalLayout>` (or
+  `<AuthShell>` for `/login`) — `_app.js` reads `Component.getLayout` and wraps accordingly. This is how two
+  different shells (navbar+bottom-nav vs. centered auth card) coexist without App Router's nested `layout.js`.
+- **Dynamic route data**: `[slug].js`/`[id].js` pages use `getServerSideProps({ params })` to look up the mock
+  record and pass it in as a prop.
+- **Page `<title>`**: each page renders its own `<Head><title>...</title></Head>` from `next/head` (no
+  `metadata` export in Pages Router).
+- There is no Server/Client Component split in the Pages Router — every component (including
+  `react-bootstrap`'s `Card`, `Form`, `Tabs`, etc.) can be used directly in any page, no special handling
+  required.
+
 ## Page map (epics/requirements → routes)
 
-| Route | Epic / requirement |
-|---|---|
-| `/login` | UR-AUTH-01 to 07, CWA-01, CWA-02 — HVC account or eCitizen SSO, OTP, consent |
-| `/` | CWA-03, CWA-04, UR-CAT-01, UR-CAT-04, UR-CAT-05 — service catalogue + continue-in-progress |
-| `/services/[slug]` | UR-RM-01 to 05 — Roadmap (summary, documents, fees) |
-| `/services/[slug]/apply` | CWA-05, CWA-06, CWA-07 — dynamic form wizard, save/resume, document upload |
-| `/checkout` | UR-PAY-01 to 06, CWA-08, CWA-09, CWA-10 — eCitizen payment, receipt, retry |
-| `/applications`, `/applications/[id]` | CWA-11, CWA-13, UR-CONT-01 to 06 — status tracking, drafts/resume, certificate + QR |
-| `/history` | CWA-18 — application & payment history |
-| `/support` | CWA-14, CWA-15 — AI assistant stub, document checklists, call for help |
-| `/account` | CWA-17, UR-NOT-05 — profile, notification channel prefs, language |
+| Route | File | Epic / requirement |
+|---|---|---|
+| `/login` | `pages/login.js` | UR-AUTH-01 to 07, CWA-01, CWA-02 — HVC account or eCitizen SSO, OTP, consent |
+| `/` | `pages/index.js` | CWA-03, CWA-04, UR-CAT-01, UR-CAT-04, UR-CAT-05 — service catalogue + continue-in-progress |
+| `/services/[slug]` | `pages/services/[slug]/index.js` | UR-RM-01 to 05 — Roadmap (summary, documents, fees) |
+| `/services/[slug]/apply` | `pages/services/[slug]/apply.js` | CWA-05, CWA-06, CWA-07 — dynamic form wizard, save/resume, document upload |
+| `/checkout` | `pages/checkout.js` | UR-PAY-01 to 06, CWA-08, CWA-09, CWA-10 — eCitizen payment, receipt, retry |
+| `/applications`, `/applications/[id]` | `pages/applications/` | CWA-11, CWA-13, UR-CONT-01 to 06 — status tracking, drafts/resume, certificate + QR |
+| `/history` | `pages/history.js` | CWA-18 — application & payment history |
+| `/support` | `pages/support.js` | CWA-14, CWA-15 — AI assistant stub, document checklists, call for help |
+| `/account` | `pages/account.js` | CWA-17, UR-NOT-05 — profile, notification channel prefs, language |
 
 The concrete example used throughout the apply/roadmap flow (`lib/mock/roadmap.js`) is **National ID Card
 Replacement**, the confirmed MVP Service 1 from URD Section 5.11 (Police Abstract → Waiting Card).
-
-## ⚠️ Architectural gotcha carried over from the admin-dashboard template
-
-`react-bootstrap`'s compound components (`Card`, `Form`, `Alert`, `Tabs`, `Dropdown`, `Navbar`, `Nav`,
-`Offcanvas`, `ListGroup`, `Pagination`, `Accordion`, and anything else with a `.Body`/`.Item`/`.Title`
-sub-component attached via `Object.assign` across sibling files) **must not be rendered directly from a plain
-Server Component** (`page.js` without `"use client"`) under Next.js 16 + Turbopack — it fails with:
-
-```
-Error: Element type is invalid: expected a string ... but got: undefined.
-```
-
-Every page in this template already follows the safe pattern: `page.js` stays a Server Component (keeps
-`export const metadata`, reads `params`, passes plain serializable data as props), and all Bootstrap-heavy
-markup lives in a co-located `"use client"` component (`components/**/*Client.jsx`). Follow the same split
-for any new route — see `admin-dashboard/README.md` in the sibling project for the full write-up (same repo
-root, same bug, same fix).
 
 ## Extending this template
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 
 const tabs = [
   { href: "/", label: "Services", icon: "bi-grid" },
@@ -11,7 +11,7 @@ const tabs = [
 ];
 
 export default function BottomNav() {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   return (
     <nav className="hvc-bottom-nav" aria-label="Mobile primary">
       {tabs.map((tab) => (

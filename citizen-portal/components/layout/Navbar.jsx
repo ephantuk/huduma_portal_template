@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter } from "next/router";
 import Form from "react-bootstrap/Form";
 import Dropdown from "react-bootstrap/Dropdown";
 import Badge from "react-bootstrap/Badge";
@@ -19,7 +19,7 @@ const links = [
 ];
 
 export default function Navbar() {
-  const pathname = usePathname();
+  const { pathname } = useRouter();
   const { t } = useLocale();
   const [showMenu, setShowMenu] = useState(false);
 
