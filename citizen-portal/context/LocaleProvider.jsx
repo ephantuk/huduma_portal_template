@@ -1,7 +1,5 @@
-"use client";
-
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { dictionary } from "@/lib/i18n/dictionary";
+import { dictionary } from "@/common/constants/dictionary";
 
 const LocaleContext = createContext(null);
 

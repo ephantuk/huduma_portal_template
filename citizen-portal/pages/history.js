@@ -1,19 +1,14 @@
-import Head from "next/head";
-import HistoryClient from "@/components/history/HistoryClient";
-import PortalLayout from "@/components/layout/PortalLayout";
-import { applicationHistory } from "@/lib/mock/applications";
+import History from "@/views/History";
+import PortalLayout from "@/common/components/PortalLayout";
+import { getApplicationHistory } from "@/apis/applications";
 
-export default function HistoryPage() {
-  return (
-    <div>
-      <Head>
-        <title>History — Huduma Virtual Centre</title>
-      </Head>
-      <h1 className="h4 mb-1">Application &amp; Payment History</h1>
-      <p className="text-secondary mb-4">Every past interaction with government services in one place (CWA-18).</p>
-      <HistoryClient records={applicationHistory} />
-    </div>
-  );
+const history = () => null;
+history.View = History;
+history.Layout = PortalLayout;
+
+export async function getServerSideProps() {
+  const records = await getApplicationHistory();
+  return { props: { records } };
 }
 
-HistoryPage.getLayout = (page) => <PortalLayout>{page}</PortalLayout>;
+export default history;

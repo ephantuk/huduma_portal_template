@@ -1,21 +1,14 @@
-import Head from "next/head";
-import MyApplicationsClient from "@/components/applications/MyApplicationsClient";
-import PortalLayout from "@/components/layout/PortalLayout";
-import { myApplications } from "@/lib/mock/applications";
+import MyApplications from "@/views/MyApplications";
+import PortalLayout from "@/common/components/PortalLayout";
+import { getMyApplications } from "@/apis/applications";
 
-export default function ApplicationsPage() {
-  return (
-    <div>
-      <Head>
-        <title>My Applications — Huduma Virtual Centre</title>
-      </Head>
-      <h1 className="h4 mb-1">My Applications</h1>
-      <p className="text-secondary mb-4">
-        Applications in progress across every service, including drafts you can resume (UR-CAT-05, UR-CONT-03).
-      </p>
-      <MyApplicationsClient applications={myApplications} />
-    </div>
-  );
+const applications = () => null;
+applications.View = MyApplications;
+applications.Layout = PortalLayout;
+
+export async function getServerSideProps() {
+  const data = await getMyApplications();
+  return { props: { applications: data } };
 }
 
-ApplicationsPage.getLayout = (page) => <PortalLayout>{page}</PortalLayout>;
+export default applications;

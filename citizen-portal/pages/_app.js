@@ -1,3 +1,4 @@
+import { Fragment } from "react";
 import { Public_Sans } from "next/font/google";
 import Head from "next/head";
 import "@/styles/theme.scss";
@@ -13,7 +14,7 @@ const publicSans = Public_Sans({
 });
 
 export default function App({ Component, pageProps }) {
-  const getLayout = Component.getLayout || ((page) => page);
+  const { View = Fragment, Layout = Fragment, RouteGuard = Fragment } = Component;
 
   return (
     <ThemeProvider>
@@ -25,7 +26,13 @@ export default function App({ Component, pageProps }) {
             content="Huduma Virtual Centre (HVC) — the digital, omnichannel equivalent of a physical Huduma Centre, delivered on the DGSP."
           />
         </Head>
-        <div className={publicSans.variable}>{getLayout(<Component {...pageProps} />)}</div>
+        <div className={publicSans.variable}>
+          <RouteGuard>
+            <Layout>
+              <View {...pageProps} />
+            </Layout>
+          </RouteGuard>
+        </div>
       </LocaleProvider>
     </ThemeProvider>
   );

@@ -1,5 +1,3 @@
-"use client";
-
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
 
 const ThemeContext = createContext(null);

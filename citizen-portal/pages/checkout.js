@@ -1,17 +1,8 @@
-import Head from "next/head";
-import CheckoutClient from "@/components/checkout/CheckoutClient";
-import PortalLayout from "@/components/layout/PortalLayout";
+import Checkout from "@/views/Checkout";
+import PortalLayout from "@/common/components/PortalLayout";
 
-export default function CheckoutPage() {
-  return (
-    <div>
-      <Head>
-        <title>Checkout — Huduma Virtual Centre</title>
-      </Head>
-      <h1 className="h4 mb-4">Payment</h1>
-      <CheckoutClient />
-    </div>
-  );
-}
+const checkout = () => null;
+checkout.View = Checkout;
+checkout.Layout = PortalLayout;
 
-CheckoutPage.getLayout = (page) => <PortalLayout>{page}</PortalLayout>;
+export default checkout;
