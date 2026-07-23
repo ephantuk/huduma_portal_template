@@ -1,6 +1,6 @@
 import { Public_Sans } from "next/font/google";
 import Head from "next/head";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "@/styles/theme.scss";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@/styles/globals.scss";
 import { ThemeProvider } from "@/context/ThemeProvider";

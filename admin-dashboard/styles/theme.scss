@@ -1,0 +1,18 @@
+// Compiles Bootstrap 5 from source with the Huduma brand palette baked into every
+// component (buttons, badges, alerts, form focus rings, etc.) — Bootstrap 5.3's
+// compiled CSS hardcodes component colors from these Sass variables at build time;
+// overriding the --bs-primary custom property alone only affects a handful of
+// CSS-variable-driven utility classes (.text-primary, .bg-primary-subtle), not
+// .btn-primary/.badge/.alert, so theming must happen here, pre-compile.
+
+$primary: #0f6e3d;
+$secondary: #1f2937;
+$success: #1f9d55;
+$warning: #e2a400;
+$danger: #d13438;
+$info: #2f8fd6;
+
+$link-color: $primary;
+$link-hover-color: #0b5230;
+
+@import "bootstrap/scss/bootstrap";

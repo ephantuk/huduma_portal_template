@@ -1,20 +1,10 @@
-// Huduma DGSP Admin Portal — theme overrides layered on top of compiled Bootstrap 5 CSS.
-// Bootstrap is imported as compiled CSS in app/layout.js; this file only overrides
-// CSS custom properties and adds the handful of layout primitives the shell needs.
+// Huduma DGSP Admin Portal — layout primitives layered on top of Bootstrap 5, which is
+// compiled from Sass in styles/theme.scss (brand colors are baked in there, not here —
+// see that file for why overriding --bs-primary alone isn't enough for react-bootstrap
+// components like .btn-primary or .badge).
 
 :root {
   --font-sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
-
-  --bs-primary: #0f6e3d;
-  --bs-primary-rgb: 15, 110, 61;
-  --bs-secondary: #1f2937;
-  --bs-secondary-rgb: 31, 41, 55;
-  --bs-success: #1f9d55;
-  --bs-warning: #e2a400;
-  --bs-danger: #d13438;
-  --bs-info: #2f8fd6;
-  --bs-link-color: #0f6e3d;
-  --bs-link-hover-color: #0b5230;
 
   --hvc-sidebar-bg: #0b1f16;
   --hvc-sidebar-fg: #d7e4dc;
@@ -137,4 +127,106 @@ body {
   .hvc-sidebar.hvc-sidebar-open {
     left: 0;
   }
+}
+
+// Split-screen auth (login/register) shell, styled after the reference mock
+// (01_admin_login_2fa_green.png): dark green branding panel + white form panel.
+.hvc-auth-hero {
+  width: 42%;
+  min-width: 420px;
+  max-width: 560px;
+  background: radial-gradient(circle at 15% 15%, #103e26 0%, var(--hvc-sidebar-bg) 60%);
+  position: relative;
+}
+
+.hvc-auth-panel {
+  background: var(--hvc-surface);
+}
+
+.hvc-flag-stripe {
+  display: flex;
+  height: 8px;
+}
+
+.hvc-flag-stripe span {
+  flex: 1;
+}
+
+.hvc-flag-stripe span:nth-child(1) {
+  background: #0a0a0a;
+}
+
+.hvc-flag-stripe span:nth-child(2) {
+  background: #ce1126;
+}
+
+.hvc-flag-stripe span:nth-child(3) {
+  background: #006b3f;
+}
+
+.hvc-logo-card {
+  display: inline-flex;
+  background: #ffffff;
+  border-radius: 0.75rem;
+  padding: 0.6rem 1rem;
+  align-self: flex-start;
+}
+
+.hvc-logo-card img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.hvc-hero-icon {
+  font-size: 9rem;
+  color: rgba(255, 255, 255, 0.18);
+}
+
+.hvc-step-track {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.hvc-step-dot {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.hvc-step-dot.done {
+  background: var(--bs-success);
+  color: #fff;
+}
+
+.hvc-step-dot.active {
+  background: var(--bs-primary);
+  color: #fff;
+}
+
+.hvc-step-dot.upcoming {
+  background: var(--hvc-surface-muted);
+  color: var(--bs-secondary-color, #6c757d);
+  border: 1px solid var(--hvc-border);
+}
+
+.hvc-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--hvc-border);
+}
+
+.hvc-otp-input {
+  width: 52px;
+  height: 60px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 600;
 }
