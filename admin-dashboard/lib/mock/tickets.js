@@ -1,0 +1,32 @@
+export const tickets = [
+  {
+    id: "TCK-501",
+    citizenRef: "CIT-2207 (hashed)",
+    appRef: "APP-88176",
+    reason: "Inspection scheduling clarification",
+    priority: "P2",
+    slaCountdown: "3h 12m",
+    status: "Open",
+    escalatedBy: "T2 Call Centre",
+  },
+  {
+    id: "TCK-500",
+    citizenRef: "CIT-9981 (hashed)",
+    appRef: "APP-88150",
+    reason: "Certificate download link not working",
+    priority: "P1",
+    slaCountdown: "0h 45m",
+    status: "In Progress",
+    escalatedBy: "T2 Call Centre",
+  },
+  {
+    id: "TCK-498",
+    citizenRef: "—",
+    appRef: "—",
+    reason: "Platform incident: OTP delivery delayed (Safaricom)",
+    priority: "P1",
+    slaCountdown: "Resolved",
+    status: "Closed",
+    escalatedBy: "Security Administrator",
+  },
+];

@@ -1,0 +1,140 @@
+// Huduma DGSP Admin Portal — theme overrides layered on top of compiled Bootstrap 5 CSS.
+// Bootstrap is imported as compiled CSS in app/layout.js; this file only overrides
+// CSS custom properties and adds the handful of layout primitives the shell needs.
+
+:root {
+  --font-sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --bs-primary: #0f6e3d;
+  --bs-primary-rgb: 15, 110, 61;
+  --bs-secondary: #1f2937;
+  --bs-secondary-rgb: 31, 41, 55;
+  --bs-success: #1f9d55;
+  --bs-warning: #e2a400;
+  --bs-danger: #d13438;
+  --bs-info: #2f8fd6;
+  --bs-link-color: #0f6e3d;
+  --bs-link-hover-color: #0b5230;
+
+  --hvc-sidebar-bg: #0b1f16;
+  --hvc-sidebar-fg: #d7e4dc;
+  --hvc-sidebar-active-bg: rgba(255, 255, 255, 0.08);
+  --hvc-sidebar-muted: #7f9c8c;
+  --hvc-surface: #ffffff;
+  --hvc-surface-muted: #f4f6f5;
+  --hvc-border: #e3e8e5;
+}
+
+[data-bs-theme="dark"] {
+  --bs-primary: #34c37f;
+  --bs-primary-rgb: 52, 195, 127;
+  --bs-body-bg: #0f1512;
+  --bs-body-color: #e5ece8;
+  --hvc-sidebar-bg: #05100a;
+  --hvc-sidebar-fg: #cfe0d7;
+  --hvc-surface: #141a17;
+  --hvc-surface-muted: #101613;
+  --hvc-border: #223028;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+.hvc-app-shell {
+  min-height: 100vh;
+  background: var(--bs-body-bg);
+}
+
+.hvc-sidebar {
+  background: var(--hvc-sidebar-bg);
+  color: var(--hvc-sidebar-fg);
+  width: 264px;
+  min-height: 100vh;
+  position: sticky;
+  top: 0;
+}
+
+.hvc-sidebar .nav-link {
+  color: var(--hvc-sidebar-fg);
+  border-radius: 0.5rem;
+  padding: 0.55rem 0.85rem;
+  font-size: 0.925rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.hvc-sidebar .nav-link:hover {
+  background: var(--hvc-sidebar-active-bg);
+  color: #fff;
+}
+
+.hvc-sidebar .nav-link.active {
+  background: var(--bs-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.hvc-sidebar .nav-section-label {
+  color: var(--hvc-sidebar-muted);
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  margin: 1.1rem 0.85rem 0.35rem;
+}
+
+.hvc-topbar {
+  background: var(--hvc-surface);
+  border-bottom: 1px solid var(--hvc-border);
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+.hvc-card {
+  background: var(--hvc-surface);
+  border: 1px solid var(--hvc-border);
+  border-radius: 0.75rem;
+}
+
+.hvc-surface-muted {
+  background: var(--hvc-surface-muted);
+}
+
+.hvc-stat-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 0.65rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.hvc-scroll-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.hvc-scroll-thin::-webkit-scrollbar-thumb {
+  background: rgba(127, 156, 140, 0.4);
+  border-radius: 999px;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+@media (max-width: 991.98px) {
+  .hvc-sidebar {
+    position: fixed;
+    z-index: 1040;
+    left: -280px;
+    transition: left 0.2s ease;
+  }
+  .hvc-sidebar.hvc-sidebar-open {
+    left: 0;
+  }
+}

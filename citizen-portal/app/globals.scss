@@ -1,0 +1,130 @@
+// Huduma Virtual Centre (HVC) Citizen Portal — theme overrides layered on top of
+// compiled Bootstrap 5 CSS. Bootstrap is imported as compiled CSS in app/layout.js;
+// this file only overrides CSS custom properties and adds the shell's layout primitives.
+
+:root {
+  --font-sans: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
+
+  --bs-primary: #0f6e3d;
+  --bs-primary-rgb: 15, 110, 61;
+  --bs-secondary: #1f2937;
+  --bs-secondary-rgb: 31, 41, 55;
+  --bs-success: #1f9d55;
+  --bs-warning: #e2a400;
+  --bs-danger: #d13438;
+  --bs-info: #2f8fd6;
+  --bs-link-color: #0f6e3d;
+  --bs-link-hover-color: #0b5230;
+
+  --hvc-surface: #ffffff;
+  --hvc-surface-muted: #f4f6f5;
+  --hvc-border: #e3e8e5;
+  --hvc-hero-bg: #0b1f16;
+  --hvc-hero-fg: #eef4f0;
+}
+
+[data-bs-theme="dark"] {
+  --bs-primary: #34c37f;
+  --bs-primary-rgb: 52, 195, 127;
+  --bs-body-bg: #0f1512;
+  --bs-body-color: #e5ece8;
+  --hvc-surface: #141a17;
+  --hvc-surface-muted: #101613;
+  --hvc-border: #223028;
+  --hvc-hero-bg: #05100a;
+}
+
+body {
+  font-family: var(--font-sans);
+  padding-bottom: 0;
+}
+
+.hvc-navbar {
+  background: var(--hvc-surface);
+  border-bottom: 1px solid var(--hvc-border);
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+.hvc-hero {
+  background: var(--hvc-hero-bg);
+  color: var(--hvc-hero-fg);
+}
+
+.hvc-card {
+  background: var(--hvc-surface);
+  border: 1px solid var(--hvc-border);
+  border-radius: 0.75rem;
+}
+
+.hvc-surface-muted {
+  background: var(--hvc-surface-muted);
+}
+
+.hvc-service-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+}
+
+.hvc-step-circle {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+/* Mobile bottom tab bar — omnichannel affordance so the web build reads as
+   "mobile app ready" on small screens (see README: Mobile / omnichannel notes). */
+.hvc-bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1030;
+  background: var(--hvc-surface);
+  border-top: 1px solid var(--hvc-border);
+  display: none;
+}
+
+.hvc-bottom-nav a {
+  flex: 1;
+  text-align: center;
+  padding: 0.5rem 0;
+  font-size: 0.7rem;
+  color: var(--bs-secondary-color, #6c757d);
+  text-decoration: none;
+}
+
+.hvc-bottom-nav a.active {
+  color: var(--bs-primary);
+}
+
+.hvc-bottom-nav i {
+  display: block;
+  font-size: 1.15rem;
+  margin-bottom: 0.15rem;
+}
+
+@media (max-width: 767.98px) {
+  .hvc-bottom-nav {
+    display: flex;
+  }
+  body {
+    padding-bottom: 60px;
+  }
+}

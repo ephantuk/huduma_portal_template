@@ -1,0 +1,76 @@
+export const applications = [
+  {
+    id: "APP-88213",
+    citizenRef: "CIT-4471 (hashed)",
+    service: "National ID Card Replacement",
+    mda: "NRB",
+    status: "Awaiting biometrics",
+    submitted: "2026-07-21",
+    slaDue: "2026-07-24",
+    overdue: false,
+    channel: "Web",
+  },
+  {
+    id: "APP-88198",
+    citizenRef: "CIT-3390 (hashed)",
+    service: "National ID Card Replacement",
+    mda: "NRB",
+    status: "Payment pending",
+    submitted: "2026-07-20",
+    slaDue: "2026-07-22",
+    overdue: true,
+    channel: "Mobile",
+  },
+  {
+    id: "APP-88176",
+    citizenRef: "CIT-2207 (hashed)",
+    service: "Driving Licence Renewal",
+    mda: "NTSA",
+    status: "Document review",
+    submitted: "2026-07-19",
+    slaDue: "2026-07-23",
+    overdue: true,
+    channel: "Kiosk",
+  },
+  {
+    id: "APP-88150",
+    citizenRef: "CIT-9981 (hashed)",
+    service: "National ID Card Replacement",
+    mda: "NRB",
+    status: "Approved",
+    submitted: "2026-07-15",
+    slaDue: "2026-07-19",
+    overdue: false,
+    channel: "Web",
+  },
+  {
+    id: "APP-88121",
+    citizenRef: "CIT-5543 (hashed)",
+    service: "Business Name Registration",
+    mda: "BRS",
+    status: "Submitted",
+    submitted: "2026-07-21",
+    slaDue: "2026-07-27",
+    overdue: false,
+    channel: "Web",
+  },
+];
+
+export const applicationDetail = {
+  "APP-88213": {
+    timeline: [
+      { step: "Application submitted", at: "2026-07-21 09:12", actor: "Citizen" },
+      { step: "Documents validated (OCR pre-check passed)", at: "2026-07-21 09:14", actor: "System" },
+      { step: "Payment received — PRN 900214477", at: "2026-07-21 10:02", actor: "eCitizen" },
+      { step: "Assigned to Huduma Centre — Nairobi GPO", at: "2026-07-21 10:05", actor: "System" },
+    ],
+    documents: [
+      { name: "Police Abstract.pdf", status: "Verified" },
+      { name: "Passport Photo.jpg", status: "Verified" },
+      { name: "Birth Certificate.pdf", status: "Needs review" },
+    ],
+    messages: [
+      { from: "MDA Officer", text: "Please confirm the birth certificate serial number is legible.", at: "2026-07-21 11:20" },
+    ],
+  },
+};
